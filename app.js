@@ -1,6 +1,5 @@
 var App = {
-	key: [5,6,3,2,9,7,1,8,4,9,8,4,1,6,3,2,5,7,7,1,2,5,4,8,9,6,3,1,4,6,7,2,9,8,3,5,2,3,7,6,8,5,4,1,9,8,5,9,3,1,4,7,2,6,3,9,1,4,5,2,6,7,8,6,7,8,9,3,1,5,4,2,4,2,5,8,7,6,3,9,1],
-	input: [5,6,3,2,9,7,1,8,4,9,8,4,1,6,3,2,5,7,7,1,2,5,4,8,9,6,3,1,4,6,7,2,9,8,3,5,2,3,7,6,8,5,4,1,9,8,5,9,3,1,4,7,2,6,3,9,1,4,5,2,6,7,8,6,7,8,9,3,1,5,4,2,4,2,5,8,7,6,3,9,1],
+	input: [],
 	data: {
 		urutan: [],
 		box: [],
@@ -18,22 +17,11 @@ var App = {
 
 	'use strict';
 
-	/*
-	* Simulate
-	*/
-	var I = 0;
-	while(I<40){
-		var ind = Math.floor(Math.random() * 81);
-		if(App.input[ind] != ''){
-			App.input[ind] = '';
-			I++;
-		}
-	}
-	/*
-	* end of
-	*/
-
 	$(document).ready(function() {
+
+	});
+
+	$('#setup').click(function(){
 		setup();
 	});
 
@@ -42,6 +30,13 @@ var App = {
 	});
 
 	function setup(){
+		var s = $('#input').val();
+		for(i=0;i<9;i++){
+			s = s.replace("\n", "");
+		}
+		App.input = s.split('').map(function(item){
+			return item == " " ? "" : parseInt(item, 10);
+		});
 		clean();
 
 		if(App.input.length == 81){
