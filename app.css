@@ -1,0 +1,41 @@
+html,body{
+	margin: 0;
+}
+
+#tools{
+	width: 450px;
+	margin: 15px auto;
+}
+#app .box{
+	width: 450px;
+	height: 450px;
+	margin: 0 auto;
+	border: 1px solid black;
+}
+
+#app .box > div{
+	width: 50px;
+	height: 50px;
+	box-sizing: border-box;
+	display: inline-block;
+	float: left;
+	line-height: 48px;
+	font-weight: 600;
+	font-size: 1.25em;
+	text-align: center;
+	color: black;
+	font-family: 'Segoe UI', 'Arial', sans-serif;
+}
+
+#app .box > div.left{
+	border-left: 1px solid #000;
+}
+#app .box > div.right{
+	border-right: 1px solid #000;
+}
+#app .box > div.top{
+	border-top: 1px solid #000;
+}
+#app .box > div.bottom{
+	border-bottom: 1px solid #000;
+}
