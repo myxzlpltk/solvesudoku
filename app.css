@@ -2,6 +2,10 @@ html,body{
 	margin: 0;
 }
 
+#app{
+	padding-bottom: 4rem;
+}
+
 #tools{
 	width: 450px;
 	margin: 15px auto;

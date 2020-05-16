@@ -25,8 +25,13 @@ var App = {
 		setup();
 	});
 
-	$('#start').click(function(){
+	$('#recursive').click(function(){
+		console.log('me');
 		recursive();
+	});
+
+	$('#backtracking').click(function(){
+		backtracking();
 	});
 
 	function setup(){
@@ -77,7 +82,7 @@ var App = {
 		}
 	}
 
-	function recursive(){
+	async function recursive(){
 		$('#meter span').text(++App.activities);
 
 		App.possible = [];
@@ -113,11 +118,44 @@ var App = {
 			});
 
 			if(entried > 0){
-				setTimeout(function(){
-					recursive();
-				}, 500);
+				await sleep(50);
+				await recursive();
 			}
 		}
+	}
+
+	function sleep(ms) {
+		return new Promise(resolve => setTimeout(resolve, ms));
+	}
+
+	async function backtracking(){
+		$('#meter span').text(++App.activities);
+		if(App.blank.length == 0){
+			return true;
+		}
+
+		var index = App.blank.shift();
+
+		for(var i=0; i<App.possibleNumber.length; i++){
+			var number = App.possibleNumber[i];
+
+			if(isPossible(number, index)){
+				inject(number, index);
+				App.box.children().eq(index).text(number);
+				await sleep(10);
+
+				if(await backtracking()){
+					return true;
+				}
+
+				uninject(index);
+				App.box.children().eq(index).text('');
+				await sleep(10);
+			}
+		};
+
+		App.blank.unshift(index);
+		return false;
 	}
 
 	function clean(){
@@ -163,6 +201,21 @@ var App = {
 		App.data.horizontal[x][y] = number;
 		App.data.vertical[y][x] = number;
 		App.data.box[z][z1] = number;
+	}
+
+	function uninject(index){
+		/* Horizontal */
+		var x = Math.floor(index/9);
+		/* Vertical */
+		var y = index%9;
+		/* 9*9 */
+		var z = ((Math.floor(x/3)) * 3) + Math.floor(y/3);
+		var z1 = ((x%3)*3)+(y%3);
+
+		App.data.urutan[index] = "";
+		App.data.horizontal[x][y] = "";
+		App.data.vertical[y][x] = "";
+		App.data.box[z][z1] = "";
 	}
 
 	function isPossible(number, index){
